@@ -9,36 +9,28 @@ export default function CartContextProvider(myprops){
     let BaseUrl=`https://ecommerce.routemisr.com`;
     let  header={token:localStorage.getItem('userTonken')}
     function addToCart(id){
-        try{
+     
         return axios.post(`${BaseUrl}/api/v1/cart`,{productId:id},{
             headers:header
-        })}
-        catch(error){
-            throw error;
-        }
+        })
         
     }
     function UpdateCart(id ,count){
-        try{
+   
         return axios.put(`${BaseUrl}/api/v1/cart/${id}`
         ,{count:count},
         {
             headers:header
-        })}
-        catch(error){
-            throw error;
-        }
+        })
         
         
     }
     function DeleteCart(id ){
-        try{
+      
         return axios.delete(`${BaseUrl}/api/v1/cart/${id}` ,
         {headers:header})
-    }
-    catch(error){
-        throw error;
-    }
+    
+  
         
     }
     function getCart(){
@@ -53,19 +45,16 @@ export default function CartContextProvider(myprops){
         
     }
     function CheckoutPayment(FormDate){
-        try{
+     
         return axios.post(`${BaseUrl}/api/v1/orders/checkout-session/${cartId}?url=http://localhost:3000`
         ,{shippingAddress:FormDate},
         {
             headers:header
-        })}
-        catch(error){
-            throw error;
-        }
+        })
         
     }
     async function cashPayment(shippingAddress) {
-        try {
+     
          return await axios.post(
            `https://ecommerce.routemisr.com/api/v1/orders/${cartId}`,
             shippingAddress ,
@@ -74,13 +63,11 @@ export default function CartContextProvider(myprops){
             }
           );
     
-        } catch (error) {
-          throw error;
-        }
+       
       }
     
     async function AddWishList(productId) {
-        try {
+      
           return  axios.post(
             `https://ecommerce.routemisr.com/api/v1/wishlist`,
             { productId }, 
@@ -88,9 +75,7 @@ export default function CartContextProvider(myprops){
                 headers:header,
             }
           );
-        } catch (error) {
-          throw error;
-        }
+     
       }
     return <CartContext.Provider value={{ addToCart ,cartNumber,cashPayment,setNumberOfWish,numberOfWish,setcartNumber,getCart,DeleteCart,UpdateCart, AddWishList,CheckoutPayment,cartId,setcartNumberId}}>
       {myprops.children}
